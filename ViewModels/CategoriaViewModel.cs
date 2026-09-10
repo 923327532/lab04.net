@@ -71,6 +71,7 @@ public class CategoriaViewModel : ViewModelBase
         Cargar();
         Seleccionada = Categorias.FirstOrDefault(x => x.CategoriaID == c.CategoriaID);
         Notificar();
+        MessageBox.Show("Guardado exitoso.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void Eliminar()
