@@ -1,0 +1,41 @@
+<Window x:Class="NeptunoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NeptunoApp.ViewModels"
+        xmlns:views="clr-namespace:NeptunoApp.Views"
+        Title="{Binding Titulo}" Height="720" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:CategoriaViewModel}">
+            <views:VistaCategorias/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProveedorViewModel}">
+            <views:VistaProveedores/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductoViewModel}">
+            <views:VistaProductos/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PedidoViewModel}">
+            <views:VistaPedidos/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="#1565C0" Padding="8">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Neptuno - Mantenimientos WPF / ADO.NET / MVVM" 
+                           Foreground="White" FontSize="16" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="4,0,30,0"/>
+                <Button Content="Categorias" Foreground="White" Background="Transparent" BorderThickness="0"
+                        Padding="12,6" FontSize="14" Command="{Binding MostrarCategoriasCommand}"/>
+                <Button Content="Productos" Foreground="White" Background="Transparent" BorderThickness="0"
+                        Padding="12,6" FontSize="14" Command="{Binding MostrarProductosCommand}"/>
+                <Button Content="Proveedores" Foreground="White" Background="Transparent" BorderThickness="0"
+                        Padding="12,6" FontSize="14" Command="{Binding MostrarProveedoresCommand}"/>
+                <Button Content="Pedidos" Foreground="White" Background="Transparent" BorderThickness="0"
+                        Padding="12,6" FontSize="14" Command="{Binding MostrarPedidosCommand}"/>
+            </StackPanel>
+        </Border>
+        <ContentControl Content="{Binding Contenido}"/>
+    </DockPanel>
+</Window>

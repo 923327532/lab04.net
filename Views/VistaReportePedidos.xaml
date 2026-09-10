@@ -1,0 +1,40 @@
+<Window x:Class="NeptunoApp.Views.VistaReportePedidos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Reporte de pedidos por fechas" Height="520" Width="860"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Detalle de pedidos (inner join Pedidos) por intervalo de fechas" 
+                   FontWeight="Bold" Margin="0,0,0,8"/>
+
+        <WrapPanel Grid.Row="1">
+            <TextBlock Text="Desde" VerticalAlignment="Center" Margin="4"/>
+            <DatePicker Width="140" SelectedDate="{Binding FechaInicio}"/>
+            <TextBlock Text="Hasta" VerticalAlignment="Center" Margin="10,0,0,4"/>
+            <DatePicker Width="140" SelectedDate="{Binding FechaFin}"/>
+            <Button Content="Generar reporte" Padding="16,6" Margin="14,0,0,0" Command="{Binding GenerarReporteCommand}"/>
+            <TextBlock Text="{Binding ReporteDetalles.Count, StringFormat='{}{0} lineas'}" 
+                       VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="Bold"/>
+        </WrapPanel>
+
+        <DataGrid Grid.Row="2" Margin="0,10,0,0" ItemsSource="{Binding ReporteDetalles}"
+                  AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="GhostWhite">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Pedido" Binding="{Binding PedidoID}" Width="70"/>
+                <DataGridTextColumn Header="Fecha Pedido" Binding="{Binding FechaPedido, StringFormat=yyyy-MM-dd}" Width="100"/>
+                <DataGridTextColumn Header="Cliente" Binding="{Binding NombreCliente}" Width="160"/>
+                <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
+                <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnidad, StringFormat=N2}" Width="80"/>
+                <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="60"/>
+                <DataGridTextColumn Header="Descuento" Binding="{Binding Descuento, StringFormat=0.##}" Width="70"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalLinea, StringFormat=N2}" Width="90"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

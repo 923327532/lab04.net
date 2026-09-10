@@ -1,0 +1,79 @@
+<UserControl x:Class="NeptunoApp.Views.VistaProductos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+            <Button Content="Actualizar" Padding="12,6" Margin="0,0,8,0" Command="{Binding CargarCommand}"/>
+            <Button Content="Nuevo" Padding="12,6" Margin="0,0,8,0" Command="{Binding NuevoCommand}"/>
+            <Button Content="Guardar" Padding="12,6" Margin="0,0,8,0" Command="{Binding GuardarCommand}"/>
+            <Button Content="Eliminar" Padding="12,6" Margin="0,0,8,0" Command="{Binding EliminarCommand}"/>
+            <Button Content="Cancelar" Padding="12,6" Command="{Binding CancelarCommand}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Productos}" SelectedItem="{Binding Seleccionado}"
+                  AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="GhostWhite"
+                  RowHeight="26" BorderBrush="#A0A0A0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Codigo" Binding="{Binding ProductoID}" Width="60"/>
+                <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="*"/>
+                <DataGridTextColumn Header="Categoria" Binding="{Binding NombreCategoria}" Width="130"/>
+                <DataGridTextColumn Header="Proveedor" Binding="{Binding CompaniaNombre}" Width="150"/>
+                <DataGridTextColumn Header="Precio" Binding="{Binding PrecioUnidad, StringFormat=N2}" Width="80"/>
+                <DataGridTextColumn Header="Existencia" Binding="{Binding UnidadesEnExistencia}" Width="80"/>
+                <DataGridCheckBoxColumn Header="Descont." Binding="{Binding Descontinuado}" Width="70"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="2" Margin="0,10,0,0" Padding="10" BorderBrush="#A0A0A0" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Nombre" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="4"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Text="{Binding Seleccionado.NombreProducto, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Por unidad" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Margin="4"/>
+                <TextBox Grid.Row="0" Grid.Column="3" Margin="4" Text="{Binding Seleccionado.CantidadPorUnidad, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Text="Categoria" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="4"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="4" ItemsSource="{Binding Categorias}"
+                          DisplayMemberPath="NombreCategoria" SelectedValuePath="CategoriaID"
+                          SelectedValue="{Binding Seleccionado.CategoriaID}"/>
+                <TextBlock Text="Proveedor" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="4"/>
+                <ComboBox Grid.Row="1" Grid.Column="3" Margin="4" ItemsSource="{Binding Proveedores}"
+                          DisplayMemberPath="CompaniaNombre" SelectedValuePath="ProveedorID"
+                          SelectedValue="{Binding Seleccionado.ProveedorID}"/>
+
+                <TextBlock Text="Precio" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="4"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="4" Text="{Binding Seleccionado.PrecioUnidad, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Existencia" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Margin="4"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Margin="4" Text="{Binding Seleccionado.UnidadesEnExistencia, UpdateSourceTrigger=PropertyChanged}"/>
+                <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <TextBlock Text="Reorden" VerticalAlignment="Center" Margin="4"/>
+                    <TextBox Width="70" Margin="4" Text="{Binding Seleccionado.NivelDeReorden, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Descontinuado" VerticalAlignment="Center" Margin="8,0,0,0" IsChecked="{Binding Seleccionado.Descontinuado}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
